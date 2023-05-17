@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
+import GreetingBox from "./GreetingBox";
+import { useCallback, useState } from "react";
 function App() {
+  const [name, setName] = useState("");
+  const [counter, setCounter] = useState(0);
+
+  const getGreeting = useCallback(() => {
+    return `Hello ${name}!`;
+  }, [name]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <GreetingBox getGreeting={getGreeting} />
+      {counter}
+      <button onClick={() => setCounter(counter + 1)}>by 1</button>
     </div>
   );
 }
